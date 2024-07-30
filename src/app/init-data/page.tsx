@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
+import { use, useEffect, useMemo, useState } from "react";
 import {
   useInitData,
   useLaunchParams,
@@ -14,6 +14,7 @@ import {
   type DisplayDataRow,
 } from "@/components/DisplayData/DisplayData";
 import { useRouter } from "next/navigation";
+// import { validateRaw } from "../util/util";
 
 function getUserRows(user: User): DisplayDataRow[] {
   return [
@@ -46,10 +47,13 @@ export default function InitDataPage() {
     };
   }, []);
 
+  const [validSuccess, setValidSuccess] = useState(false);
+
   const initDataRows = useMemo<DisplayDataRow[] | undefined>(() => {
     if (!initData || !initDataRaw) {
       return;
     }
+
     const {
       hash,
       queryId,
@@ -60,6 +64,15 @@ export default function InitDataPage() {
       canSendAfter,
       canSendAfterDate,
     } = initData;
+
+    fetch("/api/auth?v=" + encodeURIComponent(initDataRaw)).then((res) => {
+      res.json().then((res) => {
+        if (res.validate === "success") {
+          setValidSuccess(true);
+        }
+      });
+    });
+
     return [
       { title: "raw", value: initDataRaw },
       { title: "auth_date", value: authDate.toLocaleString() },
@@ -71,6 +84,7 @@ export default function InitDataPage() {
       { title: "start_param", value: startParam },
       { title: "chat_type", value: chatType },
       { title: "chat_instance", value: chatInstance },
+      // { title: "valid", value: validateRaw(initDataRaw) },
     ];
   }, [initData, initDataRaw]);
 
@@ -119,6 +133,7 @@ export default function InitDataPage() {
       {userRows && <DisplayData header={"User"} rows={userRows} />}
       {receiverRows && <DisplayData header={"Receiver"} rows={receiverRows} />}
       {chatRows && <DisplayData header={"Chat"} rows={chatRows} />}
+      <p>{validSuccess ? "validate success" : "validate error"}</p>
     </List>
   );
 }
