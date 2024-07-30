@@ -13,6 +13,7 @@ import {
   DisplayData,
   type DisplayDataRow,
 } from "@/components/DisplayData/DisplayData";
+import { useRouter } from "next/router";
 
 function getUserRows(user: User): DisplayDataRow[] {
   return [
@@ -32,9 +33,13 @@ function getUserRows(user: User): DisplayDataRow[] {
 export default function InitDataPage() {
   const initDataRaw = useLaunchParams().initDataRaw;
   const initData = useInitData();
+  const router = useRouter();
 
   const b = useBackButton();
   b.show();
+  b.on("click", () => {
+    router.back();
+  });
 
   const initDataRows = useMemo<DisplayDataRow[] | undefined>(() => {
     if (!initData || !initDataRaw) {
