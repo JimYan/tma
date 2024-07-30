@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import {
   useInitData,
   useLaunchParams,
@@ -36,10 +36,15 @@ export default function InitDataPage() {
   const router = useRouter();
 
   const b = useBackButton();
-  b.show();
-  b.on("click", () => {
-    router.back();
-  });
+  useEffect(() => {
+    b.show();
+    b.on("click", () => {
+      router.back();
+    });
+    return () => {
+      b.hide();
+    };
+  }, []);
 
   const initDataRows = useMemo<DisplayDataRow[] | undefined>(() => {
     if (!initData || !initDataRaw) {
