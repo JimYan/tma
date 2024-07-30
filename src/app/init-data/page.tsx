@@ -13,7 +13,7 @@ import {
   DisplayData,
   type DisplayDataRow,
 } from "@/components/DisplayData/DisplayData";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 function getUserRows(user: User): DisplayDataRow[] {
   return [
