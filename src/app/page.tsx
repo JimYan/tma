@@ -1,6 +1,6 @@
 "use client";
 
-import { postEvent } from "@telegram-apps/sdk-react";
+import { postEvent, initMiniApp } from "@telegram-apps/sdk-react";
 import { Section, Cell, Image, List } from "@telegram-apps/telegram-ui";
 
 import { Link } from "@/components/Link/Link";
@@ -9,10 +9,14 @@ import tonSvg from "./_assets/ton.svg";
 import { useEffect } from "react";
 
 export default function Home() {
-  useEffect(() => {
-    console.log("Home page loaded");
-    postEvent("web_app_expand");
-  }, []);
+  const [miniApp] = initMiniApp();
+  miniApp.setHeaderColor("#aa1132");
+  miniApp.sendData("web_app_expand");
+
+  // useEffect(() => {
+  //   console.log("Home page loaded");
+  //   postEvent("web_app_expand");
+  // }, []);
   return (
     <List>
       <Section
