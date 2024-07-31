@@ -11,7 +11,8 @@ import { useEffect } from "react";
 export default function Home() {
   const [miniApp] = initMiniApp();
   miniApp.setHeaderColor("#aa1132");
-  miniApp.sendData("web_app_expand");
+  // miniApp.sendData("web_app_expand");
+  postEvent("web_app_expand");
 
   // useEffect(() => {
   //   console.log("Home page loaded");
