@@ -1,5 +1,3 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-
 // 生成一段代码，数据校验字符串是所有接收字段的链，按字母顺序排序，格式key=<value>为以换行符（'\n'，0x0A）作为分隔符 - 例如'auth_date=<auth_date>\nquery_id=<query_id>\nuser=<user>'。
 
 import { validate } from "@telegram-apps/init-data-node";
@@ -18,11 +16,4 @@ export function validateRaw(initData: string, secret = secretToken) {
   } catch (e: any) {
     return e.message;
   }
-}
-
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  console.log(req.query);
-  const r = validateRaw(req.query.v as string);
-  console.log(r);
-  res.status(200).json({ name: "John Does", validate: r });
 }
