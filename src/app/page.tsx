@@ -8,6 +8,7 @@ import { Link } from "@/components/Link/Link";
 
 import tonSvg from "./_assets/ton.svg";
 import { useEffect } from "react";
+import { useCounterContract } from "@/hooks/useCounterContract";
 
 const manifestUrl = "/tonconnect-manifest.json";
 
@@ -16,6 +17,7 @@ export default function Home() {
   miniApp.setHeaderColor("#aa1132");
   // miniApp.sendData("web_app_expand");
   postEvent("web_app_expand");
+  const { value, address: xaddress } = useCounterContract();
 
   // useEffect(() => {
   //   console.log("Home page loaded");
@@ -64,6 +66,13 @@ export default function Home() {
         </Section>
         <Section>
           <TonConnectButton />
+        </Section>
+
+        <Section>
+          <Cell subtitle="Counter">
+            <p>value:{value}</p>
+            <p>address:{xaddress}</p>
+          </Cell>
         </Section>
       </List>
     </TonConnectUIProvider>

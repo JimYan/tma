@@ -10,10 +10,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@orbs-network/ton-access": "^2.3.3",
     "@telegram-apps/init-data-node": "^1.0.4",
     "@telegram-apps/react-router-integration": "^1.0.0",
     "@telegram-apps/sdk-react": "^1.0.0",
     "@telegram-apps/telegram-ui": "^2.1.5",
+    "@ton/core": "^0.56.3",
+    "@ton/ton": "^14.0.0",
     "@tonconnect/ui-react": "^2.0.6",
     "eruda": "^3.0.1",
     "next": "14.2.4",
